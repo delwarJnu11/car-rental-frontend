@@ -4,10 +4,17 @@ import { NavLink } from 'react-router-dom';
 import logoWhite from '../../assets/images/logo-white.png';
 import logo from '../../assets/images/logo.png';
 import { useTheme } from '../../hooks/useTheme';
+import Register from '../Auth/Register';
 
 const Header = () => {
 	const { theme, toggleTheme } = useTheme();
 	const [menuOpen, setMenuOpen] = useState(false);
+	const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+
+	// Toggle Modal
+	const handleRegisterModal = () => {
+		setIsRegisterOpen(!isRegisterOpen);
+	};
 
 	const menuItems = [
 		{ name: 'Home', href: '/' },
@@ -48,7 +55,10 @@ const Header = () => {
 					<button className='flex justify-center items-center gap-2 font-firaCode px-4 py-2 text-sm font-medium text-white bg-secondary rounded border-2 border-black hover:bg-white hover:border-orange-500 hover:text-black'>
 						<User /> Login
 					</button>
-					<button className='flex justify-center items-center gap-2 font-firaCode px-4 py-2 text-sm font-medium text-white bg-primary rounded border-2 border-transparent hover:bg-white hover:border-orange-500 hover:text-black'>
+					<button
+						onClick={handleRegisterModal}
+						className='flex justify-center items-center gap-2 font-firaCode px-4 py-2 text-sm font-medium text-white bg-primary rounded border-2 border-transparent hover:bg-white hover:border-orange-500 hover:text-black'
+					>
 						<Lock /> Register
 					</button>
 					<button
@@ -108,6 +118,10 @@ const Header = () => {
 						</li>
 					</ul>
 				</nav>
+			)}
+
+			{isRegisterOpen && (
+				<Register onHandleRegisterModal={handleRegisterModal} />
 			)}
 		</header>
 	);
